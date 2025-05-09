@@ -1,11 +1,12 @@
 // src/router/index.tsx
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import { lazy } from "react";
+import { lazyWithErrorBoundary } from "../components/lazy-with-error-boundary";
+import { RouterErrorFallback } from "../components/routing/RouterErrorBoundary";
 
-// Lazy-loaded pages
-const HomePage = lazy(() => import("../pages/HomePage"));
-// const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
-// const UploadPhotosPage = lazy(() => import("@/pages/photographer/UploadPhotosPage"));
+// Lazy-loaded pages with error boundaries
+const HomePage = lazyWithErrorBoundary(() => import("../pages/HomePage"));
+// const AdminDashboard = lazyWithErrorBoundary(() => import("../pages/admin/AdminDashboard"));
+// const UploadPhotosPage = lazyWithErrorBoundary(() => import("../pages/photographer/UploadPhotosPage"));
 
 // Layouts
 const PublicLayout = () => <Outlet />;
@@ -15,6 +16,7 @@ const PhotographerLayout = () => <Outlet />;
 export const router = createBrowserRouter([
   {
     element: <PublicLayout />,
+    errorElement: <RouterErrorFallback />,
     children: [
       {
         path: "/",
@@ -25,6 +27,7 @@ export const router = createBrowserRouter([
   // {
   //   path: "/admin",
   //   element: <AdminLayout />,
+  //   errorElement: <RouterErrorFallback />,
   //   children: [
   //     {
   //       index: true,
@@ -36,6 +39,7 @@ export const router = createBrowserRouter([
   // {
   //   path: "/photographer",
   //   element: <PhotographerLayout />,
+  //   errorElement: <RouterErrorFallback />,
   //   children: [
   //     {
   //       path: "upload",

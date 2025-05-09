@@ -29,7 +29,7 @@ const PhotoModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl p-0 h-[90vh] flex flex-col">
+      <DialogContent className="max-w-6xl p-0 h-[90vh] flex flex-col bg-background dark:bg-background-dark">
         {/* Close button */}
         <Button
           variant="ghost"
@@ -60,7 +60,7 @@ const PhotoModal = ({
         </Button>
 
         {/* Main content */}
-        <div className="bg-slate-950 flex-1 overflow-hidden flex flex-col md:flex-row">
+        <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
           {/* Photo */}
           <div className="relative flex-1 min-h-[50%] md:min-h-0">
             <img
