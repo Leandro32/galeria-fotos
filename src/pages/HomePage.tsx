@@ -8,6 +8,7 @@ import LocationSelector from "../components/photo-gallery/LocationSelector"
 import PhotoFilters from "../components/photo-gallery/PhotoFilters"
 import PhotoGrid from "../components/photo-gallery/PhotoGrid"
 import PhotoModal from "../components/photo-gallery/PhotoModal"
+import { Link } from "react-router-dom"
 
 const HomePage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("")
@@ -166,7 +167,15 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       <main className="container mx-auto py-8">
-        <h1 className="text-3xl font-bold text-center mb-8">Photo Gallery</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold">Photo Gallery</h1>
+          <Link 
+            to="/upload" 
+            className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
+          >
+            <span>Subir Fotos</span>
+          </Link>
+        </div>
         
         {/* Cart indicator component */}
         <CartIndicator count={cart.length} />
