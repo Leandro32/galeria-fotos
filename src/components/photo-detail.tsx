@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -29,7 +28,7 @@ export function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
       <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
         <div className="grid md:grid-cols-2 gap-0">
           <div className="relative aspect-square md:aspect-auto">
-            <Image src={photo.url || "/placeholder.svg"} alt={photo.title} fill className="object-cover" />
+            <img src={photo.url || "/placeholder.svg"} alt={photo.title} fill className="object-cover" />
           </div>
           <div className="p-6 space-y-4">
             <div className="flex justify-between items-start">
