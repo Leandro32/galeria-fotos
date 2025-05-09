@@ -1,0 +1,44 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Component Patterns
+
+## Component Structure
+
+- Components should follow a consistent structure:
+  1. Imports
+  2. Type definitions (props interface)
+  3. Component function
+  4. Helper functions (if needed)
+  5. Exports
+
+## Props Handling
+
+- Use destructuring for props
+- Provide default values when appropriate
+- Use TypeScript interfaces for prop types
+- Consider using optional props with `?` notation
+
+## State Management
+
+- Keep state as local as possible
+- Use React's built-in hooks (`useState`, `useReducer`) for simple state
+- Extract complex state logic to custom hooks
+- Consider context for deeply nested state requirements
+
+## Performance Optimization
+
+- Only use `React.memo()` when profiling shows a clear performance benefit
+- Avoid premature optimization with `useCallback` and `useMemo` - React 19's compiler handles most cases
+- Focus on reducing component complexity and unnecessary re-renders
+- Use virtualization for long lists (react-window or react-virtualized)
+- Consider using `startTransition` for non-urgent updates
+
+## Accessibility
+
+- Ensure all interactive elements are keyboard accessible
+- Use appropriate ARIA attributes
+- Maintain proper heading hierarchy
+- Ensure sufficient color contrast

@@ -1,0 +1,19 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Keyboard Shortcuts
+
+The photo gallery application supports the following keyboard shortcuts for improved user experience:
+
+| Key Combination | Action |
+|-----------------|--------|
+| `/` | Focus search bar |
+| `Esc` | Close modal/dialog |
+| `←` `→` | Navigate between photos in gallery view |
+| `Space` | Toggle fullscreen view |
+| `+` / `-` | Zoom in/out when viewing photo details |
+| `c` | Add current photo to cart |
+
+These shortcuts are defined in the application to enhance navigation and user interaction.

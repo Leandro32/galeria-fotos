@@ -1,0 +1,36 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Development Workflow
+
+## Getting Started
+
+1. Install dependencies with `yarn install`
+2. Start the development server with `yarn dev`
+3. Run tests with `yarn test` or `yarn test:watch`
+
+## Development Process
+
+- Start by understanding requirements
+- Create or modify components in the appropriate directory
+- Add necessary types in [src/types/](mdc:src/types/)
+- Implement functionality with proper hooks
+- Add tests for new components or features
+- Ensure responsive design works on all target devices
+
+## Code Review Guidelines
+
+- Ensure code follows project conventions
+- Check for TypeScript errors and proper typing
+- Verify component reusability and separation of concerns
+- Test for edge cases and error states
+- Validate accessibility compliance
+- Review performance implications
+
+## Build and Deployment
+
+- Run `yarn build` to create production build
+- Verify build output works as expected
+- Follow deployment process for target environment

@@ -1,0 +1,44 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Coding Conventions
+
+## TypeScript
+
+- Use TypeScript for type safety
+- Define interfaces and types in [src/types/](mdc:src/types/) directory
+- Use explicit return types for functions
+- Prefer interfaces for object types that can be extended
+
+## React Components
+
+- Use functional components with hooks
+- Follow naming conventions:
+  - Components: PascalCase (e.g., `PhotoGallery.tsx`)
+  - Hooks: camelCase with `use` prefix (e.g., `usePhotoData.ts`)
+  - Utility functions: camelCase (e.g., `formatPrice.ts`)
+- Keep components focused on a single responsibility
+- Extract reusable logic to custom hooks
+
+## Styling
+
+- Use Tailwind CSS for styling
+- Follow utility-first approach
+- Use composition with `clsx` or `tailwind-merge` for conditional styling
+- Maintain consistent spacing and layout patterns
+
+## File Structure
+
+- Group related files by feature when possible
+- Keep component files relatively small (< 300 lines)
+- Co-locate tests with implementation files
+- Use barrel exports (index.ts files) for cleaner imports
+
+## Testing
+
+- Write tests for components and utility functions
+- Use Testing Library for component tests
+- Focus on user interactions and accessibility
+- Test edge cases and error states

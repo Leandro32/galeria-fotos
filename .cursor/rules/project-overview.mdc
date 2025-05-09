@@ -1,0 +1,30 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Overview
+
+This is a Photo Gallery application built with React, TypeScript, and Vite. The project has two main parts:
+
+1. The main application in the [src/](mdc:src/) directory
+2. A separate Next.js implementation in the [photogallery/](mdc:photogallery/) directory
+
+## Main Features
+
+- Browse photos by various criteria (location, category, price, orientation)
+- View photo details and add to shopping cart
+- Responsive design with mobile-friendly navigation
+- Toast notifications for cart updates
+- Keyboard shortcuts for navigation
+
+## Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- Radix UI Components
+- Tailwind CSS
+- Lucide Icons
+
+The application entry point is [src/main.tsx](mdc:src/main.tsx) with global styles in [src/index.css](mdc:src/index.css).

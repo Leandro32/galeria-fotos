@@ -1,0 +1,45 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Tech Stack and Dependencies
+
+## Core Technologies
+
+- **React 19**: Modern UI library for building component-based interfaces
+- **TypeScript**: Static type checking for JavaScript
+- **Vite**: Fast build tool and development server
+- **Tailwind CSS**: Utility-first CSS framework
+
+## UI Components
+
+The project uses [Radix UI](mdc:package.json) components for accessible, unstyled UI primitives:
+- Dialog, Popover, Dropdown menus
+- Accordion, Tabs, Navigation menus
+- Form elements (Checkbox, Radio, Select)
+- Toast notifications
+
+## Routing
+
+- **React Router**: Used for client-side routing ([react-router-dom](mdc:package.json))
+
+## Icons and Styling
+
+- **Lucide React**: Icon library
+- **class-variance-authority**: For creating variant-based component styles
+- **clsx** and **tailwind-merge**: Utilities for conditional class names
+
+## Testing
+
+- **Vitest**: Test runner compatible with Vite
+- **Testing Library**: For React component testing
+- **JSDOM**: Browser environment for tests
+
+## Build and Development
+
+The project uses [Yarn](mdc:package.json) as the package manager with scripts for:
+- Development server: `yarn dev`
+- Production build: `yarn build`
+- Linting: `yarn lint`
+- Testing: `yarn test` and `yarn test:watch`

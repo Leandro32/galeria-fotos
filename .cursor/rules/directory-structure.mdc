@@ -1,0 +1,33 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Directory Structure
+
+## Main Application Structure (src/)
+
+- [src/assets/](mdc:src/assets/) - Static files (images, fonts)
+- [src/components/](mdc:src/components/) - Reusable UI components
+  - [src/components/photo-gallery/](mdc:src/components/photo-gallery/) - Photo gallery specific components
+  - [src/components/routing/](mdc:src/components/routing/) - Routing related components
+  - [src/components/ui/](mdc:src/components/ui/) - Generic UI components
+- [src/data/](mdc:src/data/) - Sample data and constants
+- [src/hooks/](mdc:src/hooks/) - Custom React hooks
+- [src/lib/](mdc:src/lib/) - Utility functions and helpers
+  - [src/lib/mcp/](mdc:src/lib/mcp/) - Model-Controller-Presenter pattern implementations
+- [src/pages/](mdc:src/pages/) - Main page components
+- [src/routes/](mdc:src/routes/) - Application routing
+- [src/test/](mdc:src/test/) - Test utilities and mocks
+- [src/types/](mdc:src/types/) - TypeScript type definitions
+
+## Next.js Implementation (photogallery/)
+
+- [photogallery/app/](mdc:photogallery/app/) - Next.js app directory
+- [photogallery/components/](mdc:photogallery/components/) - React components
+  - [photogallery/components/ui/](mdc:photogallery/components/ui/) - UI components
+- [photogallery/data/](mdc:photogallery/data/) - Data files
+- [photogallery/hooks/](mdc:photogallery/hooks/) - Custom React hooks
+- [photogallery/lib/](mdc:photogallery/lib/) - Utility functions
+- [photogallery/public/](mdc:photogallery/public/) - Static assets
+- [photogallery/styles/](mdc:photogallery/styles/) - CSS styles

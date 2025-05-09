@@ -1,0 +1,33 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Dual Implementation Structure
+
+This project contains two implementations of the photo gallery application:
+
+## 1. React + Vite Implementation
+
+The primary implementation is built with React 19 and Vite, located in the [src/](mdc:src/) directory. This version uses:
+
+- React Router for navigation
+- Direct import of Radix UI components
+- Tailwind CSS for styling
+
+## 2. Next.js Implementation
+
+A parallel implementation using Next.js is located in the [photogallery/](mdc:photogallery/) directory. This version:
+
+- Uses the Next.js App Router
+- Has its own component structure
+- Shares similar styling approach with Tailwind CSS
+
+## Purpose
+
+The dual implementation allows for:
+1. Comparison between different React frameworks
+2. Exploration of different routing strategies
+3. Demonstration of component reusability across frameworks
+
+When working on features, consider which implementation you're targeting, as the file structure and imports will differ between the two.
