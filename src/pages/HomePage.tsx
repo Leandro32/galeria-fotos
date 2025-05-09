@@ -6,35 +6,33 @@ import { Dialog, DialogContent } from "../components/ui/dialog"
 import { Badge } from "../components/ui/badge"
 import { ShoppingCart, Plus, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
-import React, { Suspense } from 'react';
-import TestComponent from '../components/test-component';
 
 // Simple data structures
 const locations = [
   {
     id: "new-york",
     name: "New York",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder.svg",
   },
   {
     id: "los-angeles",
     name: "Los Angeles",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder.svg",
   },
   {
     id: "chicago",
     name: "Chicago",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder.svg",
   },
   {
     id: "san-francisco",
     name: "San Francisco",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder.svg",
   },
   {
     id: "miami",
     name: "Miami",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder.svg",
   },
 ]
 
@@ -44,7 +42,7 @@ const photos = [
     title: "Sunset at Venice Beach",
     description:
       "A breathtaking sunset view over the Pacific Ocean at Venice Beach, capturing the golden hour with silhouettes of palm trees and surfers.",
-    url: "/placeholder.svg?height=600&width=500",
+    url: "/placeholder.svg",
     location: "Los Angeles",
     price: 29.99,
     size: "large", // for masonry layout
@@ -57,7 +55,7 @@ const photos = [
     title: "Brooklyn Bridge at Night",
     description:
       "The iconic Brooklyn Bridge illuminated at night with the Manhattan skyline in the background, reflecting on the East River.",
-    url: "/placeholder.svg?height=400&width=300",
+    url: "/placeholder.svg",
     location: "New York",
     price: 34.99,
     size: "small",
@@ -70,7 +68,7 @@ const photos = [
     title: "Golden Gate in Fog",
     description:
       "The majestic Golden Gate Bridge emerging from the iconic San Francisco fog, creating a mystical atmosphere.",
-    url: "/placeholder.svg?height=500&width=400",
+    url: "/placeholder.svg",
     location: "San Francisco",
     price: 24.99,
     size: "medium",
@@ -83,7 +81,7 @@ const photos = [
     title: "Chicago Skyline Panorama",
     description:
       "A wide panoramic view of the Chicago skyline from Lake Michigan, showcasing the city's impressive architecture.",
-    url: "/placeholder.svg?height=300&width=500",
+    url: "/placeholder.svg",
     location: "Chicago",
     price: 39.99,
     size: "medium",
@@ -96,7 +94,7 @@ const photos = [
     title: "Miami Beach Sunrise",
     description:
       "A vibrant sunrise over Miami Beach with colorful lifeguard towers and palm trees silhouetted against the morning sky.",
-    url: "/placeholder.svg?height=600&width=400",
+    url: "/placeholder.svg",
     location: "Miami",
     price: 19.99,
     size: "large",
@@ -109,7 +107,7 @@ const photos = [
     title: "Griffith Observatory View",
     description:
       "A stunning view of Los Angeles from the Griffith Observatory at dusk, with city lights beginning to twinkle.",
-    url: "/placeholder.svg?height=400&width=300",
+    url: "/placeholder.svg",
     location: "Los Angeles",
     price: 27.99,
     size: "small",
@@ -121,7 +119,7 @@ const photos = [
     id: 7,
     title: "Central Park in Autumn",
     description: "The vibrant fall colors of Central Park with the New York skyline rising in the background.",
-    url: "/placeholder.svg?height=500&width=400",
+    url: "/placeholder.svg",
     location: "New York",
     price: 22.99,
     size: "medium",
@@ -133,7 +131,7 @@ const photos = [
     id: 8,
     title: "Alcatraz Island",
     description: "The historic Alcatraz Island prison in San Francisco Bay, shrouded in light fog.",
-    url: "/placeholder.svg?height=300&width=400",
+    url: "/placeholder.svg",
     location: "San Francisco",
     price: 29.99,
     size: "small",
@@ -145,7 +143,7 @@ const photos = [
     id: 9,
     title: "Navy Pier Ferris Wheel",
     description: "The colorful Ferris wheel at Navy Pier in Chicago illuminated against the night sky.",
-    url: "/placeholder.svg?height=600&width=500",
+    url: "/placeholder.svg",
     location: "Chicago",
     price: 32.99,
     size: "large",
@@ -157,7 +155,7 @@ const photos = [
     id: 10,
     title: "Art Deco Miami",
     description: "The colorful Art Deco buildings of Miami's South Beach district at sunset.",
-    url: "/placeholder.svg?height=400&width=300",
+    url: "/placeholder.svg",
     location: "Miami",
     price: 24.99,
     size: "small",
@@ -169,7 +167,7 @@ const photos = [
     id: 11,
     title: "Hollywood Sign",
     description: "The iconic Hollywood sign overlooking Los Angeles on a clear day.",
-    url: "/placeholder.svg?height=500&width=400",
+    url: "/placeholder.svg",
     location: "Los Angeles",
     price: 26.99,
     size: "medium",
@@ -181,7 +179,7 @@ const photos = [
     id: 12,
     title: "Times Square Lights",
     description: "The dazzling lights and billboards of Times Square in the heart of New York City.",
-    url: "/placeholder.svg?height=300&width=500",
+    url: "/placeholder.svg",
     location: "New York",
     price: 34.99,
     size: "medium",
@@ -193,7 +191,7 @@ const photos = [
     id: 13,
     title: "Painted Ladies",
     description: "The famous 'Painted Ladies' Victorian houses with the San Francisco skyline in the background.",
-    url: "/placeholder.svg?height=600&width=400",
+    url: "/placeholder.svg",
     location: "San Francisco",
     price: 29.99,
     size: "large",
@@ -206,7 +204,7 @@ const photos = [
     title: "Chicago River",
     description:
       "The Chicago River dyed green for St. Patrick's Day, with the city's architecture lining the riverbanks.",
-    url: "/placeholder.svg?height=400&width=300",
+    url: "/placeholder.svg",
     location: "Chicago",
     price: 19.99,
     size: "small",
@@ -218,7 +216,7 @@ const photos = [
     id: 15,
     title: "Wynwood Walls",
     description: "The colorful street art murals of Miami's Wynwood Walls arts district.",
-    url: "/placeholder.svg?height=500&width=400",
+    url: "/placeholder.svg",
     location: "Miami",
     price: 24.99,
     size: "medium",
@@ -415,11 +413,6 @@ const HomePage = () => {
       <main className="container mx-auto py-8">
         <h1 className="text-3xl font-bold text-center mb-8">Photo Gallery</h1>
         
-        {/* Tailwind Test Component */}
-        <Suspense fallback={<div>Loading...</div>}>
-          <TestComponent />
-        </Suspense>
-        
         {/* Cart indicator */}
         {cart.length > 0 && (
           <div className="fixed top-4 right-4 z-50">
@@ -483,12 +476,11 @@ const HomePage = () => {
                             : "border-border hover:border-primary/50"
                         }`}
                       >
-                        <div className="h-10 w-10 relative rounded-full overflow-hidden mr-2">
+                        <div className="relative rounded-full overflow-hidden mr-2">
                           <img
                             src={photographerPhoto?.url || "/placeholder.svg"}
                             alt={photographer}
-                            fill
-                            className="object-cover"
+                            className="object-cover h-10 w-10"
                           />
                         </div>
                         <span className="text-sm truncate">{photographer}</span>
