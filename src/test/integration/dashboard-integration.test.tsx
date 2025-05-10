@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { renderWithRouter } from './utils'
+import { renderWithRouter } from "../utils/utils"
 
 // Import components
-import { AlbumsTable } from '../components/photo-gallery/albums-table'
-import { DailyPerformance } from '../components/photo-gallery/daily-performance'
-import { MainNav } from '../components/photo-gallery/main-nav'
-import { StatCard } from '../components/photo-gallery/stat-card'
-import { UserNav } from '../components/photo-gallery/user-nav'
+import { AlbumsTable } from "../../components/photo-gallery/albums-table"
+import { DailyPerformance } from "../../components/photo-gallery/daily-performance"
+import { MainNav } from "../../components/photo-gallery/main-nav"
+import { StatCard } from "../../components/photo-gallery/stat-card"
+import { UserNav } from "../../components/photo-gallery/user-nav"
 
 // Create a simplified Dashboard component for testing
 const SimpleDashboard = () => {

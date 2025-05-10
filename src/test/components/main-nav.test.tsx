@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { MainNav } from '../components/photo-gallery/main-nav'
-import { renderWithRouter } from './utils'
+import { MainNav } from "../../components/photo-gallery/main-nav"
+import { renderWithRouter } from "../utils/utils"
 
 describe('MainNav', () => {
   it('renders all navigation links correctly', () => {

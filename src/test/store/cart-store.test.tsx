@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import { useCartStore, Photo } from '../stores/useCartStore'
+import { useCartStore, Photo } from "../../stores/useCartStore"
 import { renderHook, act } from '@testing-library/react'
 
 describe('Cart Store', () => {

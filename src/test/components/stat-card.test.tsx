@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { StatCard } from '../components/photo-gallery/stat-card'
+import { StatCard } from "../../components/photo-gallery/stat-card"
 
 describe('StatCard', () => {
   const defaultProps = {

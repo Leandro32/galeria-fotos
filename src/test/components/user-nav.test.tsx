@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { UserNav } from '../components/photo-gallery/user-nav'
+import { UserNav } from "../../components/photo-gallery/user-nav"
 
 describe('UserNav', () => {
   it('renders avatar button', () => {

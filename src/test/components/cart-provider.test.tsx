@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { CartProvider, useCart, type Photo } from '../components/cart-provider'
+import { CartProvider, useCart, type Photo } from "../../components/cart-provider"
 
 // Mock photo for testing
 const mockPhoto: Photo = {

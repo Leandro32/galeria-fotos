@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { useCartStore, Photo } from '../stores/useCartStore'
+import { useCartStore, Photo } from "../../stores/useCartStore"
 import { render, screen, fireEvent } from '@testing-library/react'
 
 // Example hooks that demonstrate the usage of useCartStore

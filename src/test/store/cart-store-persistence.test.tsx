@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach } from 'vitest'
 import { act } from '@testing-library/react'
 
 // Import the store directly from the file (to avoid module caching issues)
-import { useCartStore } from '../stores/useCartStore'
+import { useCartStore } from "../../stores/useCartStore"
 
 // Define a Photo type for tests
 interface Photo {

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { DailyPerformance } from '../components/photo-gallery/daily-performance'
+import { DailyPerformance } from "../../components/photo-gallery/daily-performance"
 
 describe('DailyPerformance', () => {
   it('renders daily performance data correctly', () => {

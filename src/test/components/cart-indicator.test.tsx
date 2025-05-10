@@ -1,8 +1,8 @@
 import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import CartIndicator from '../components/photo-gallery/CartIndicator'
-import { useCartStore, Photo } from '../stores/useCartStore'
+import CartIndicator from "../../components/photo-gallery/CartIndicator"
+import { useCartStore, Photo } from "../../stores/useCartStore"
 import { act } from '@testing-library/react'
 
 // Mock the ShoppingCart icon from lucide-react

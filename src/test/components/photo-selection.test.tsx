@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { PhotoSelection } from '../components/photo-selection'
-import { Photo } from '../types' // Import the actual Photo type
+import { PhotoSelection } from "../../components/photo-selection"
+import { Photo } from '../../types'
 
 // Mock photos for testing that match the Photo type
 const mockPhotos: Photo[] = [
@@ -40,7 +40,7 @@ const mockOnPhotoClick = vi.fn()
 const mockAddToCart = vi.fn()
 
 // Mock the useCartStore
-vi.mock('../stores/useCartStore', () => ({
+vi.mock('../../stores/useCartStore', () => ({
   useCartStore: () => ({
     addToCart: mockAddToCart,
     items: [],
@@ -48,7 +48,6 @@ vi.mock('../stores/useCartStore', () => ({
     clearCart: vi.fn(),
     calculateTotal: vi.fn(() => 0),
   }),
-  Photo: {} // Mock the Photo type export
 }))
 
 describe('PhotoSelection', () => {
@@ -72,7 +71,8 @@ describe('PhotoSelection', () => {
     )
     
     // Click on the first photo
-    fireEvent.click(screen.getAllByRole('img')[0])
+    const images = screen.getAllByRole('img');
+    fireEvent.click(images[0]);
     
     // Check if onPhotoClick was called with the correct photo
     expect(mockOnPhotoClick).toHaveBeenCalledWith(mockPhotos[0])
@@ -86,11 +86,14 @@ describe('PhotoSelection', () => {
     // Initially, no photos are selected
     expect(screen.queryByText(/photos selected/i)).not.toBeInTheDocument()
     
-    // Click the selection button on the first photo
-    const selectButtons = screen.getAllByRole('button').filter(button => 
-      !button.textContent?.includes('Add to Cart')
-    )
-    fireEvent.click(selectButtons[0])
+    // Find all buttons and filter for the selection buttons (without text content)
+    const buttons = screen.getAllByRole('button');
+    const selectButtons = buttons.filter(button => 
+      !button.textContent || button.textContent.trim() === ''
+    );
+    
+    // Click the first selection button
+    fireEvent.click(selectButtons[0]);
     
     // Check if the selection indicator appears
     expect(screen.getByText('1 photo selected')).toBeInTheDocument()
@@ -101,10 +104,13 @@ describe('PhotoSelection', () => {
       <PhotoSelection photos={mockPhotos} onPhotoClick={mockOnPhotoClick} />
     )
     
+    // Find selection buttons
+    const buttons = screen.getAllByRole('button');
+    const selectButtons = buttons.filter(button => 
+      !button.textContent || button.textContent.trim() === ''
+    );
+    
     // Select a photo
-    const selectButtons = screen.getAllByRole('button').filter(button => 
-      !button.textContent?.includes('Add to Cart')
-    )
     fireEvent.click(selectButtons[0])
     
     // Check if it's selected
@@ -122,10 +128,13 @@ describe('PhotoSelection', () => {
       <PhotoSelection photos={mockPhotos} onPhotoClick={mockOnPhotoClick} />
     )
     
+    // Find selection buttons
+    const buttons = screen.getAllByRole('button');
+    const selectButtons = buttons.filter(button => 
+      !button.textContent || button.textContent.trim() === ''
+    );
+    
     // Select both photos
-    const selectButtons = screen.getAllByRole('button').filter(button => 
-      !button.textContent?.includes('Add to Cart')
-    )
     fireEvent.click(selectButtons[0])
     fireEvent.click(selectButtons[1])
     
@@ -138,10 +147,13 @@ describe('PhotoSelection', () => {
       <PhotoSelection photos={mockPhotos} onPhotoClick={mockOnPhotoClick} />
     )
     
+    // Find selection buttons
+    const buttons = screen.getAllByRole('button');
+    const selectButtons = buttons.filter(button => 
+      !button.textContent || button.textContent.trim() === ''
+    );
+    
     // Select both photos
-    const selectButtons = screen.getAllByRole('button').filter(button => 
-      !button.textContent?.includes('Add to Cart')
-    )
     fireEvent.click(selectButtons[0])
     fireEvent.click(selectButtons[1])
     
@@ -157,15 +169,19 @@ describe('PhotoSelection', () => {
       <PhotoSelection photos={mockPhotos} onPhotoClick={mockOnPhotoClick} />
     )
     
+    // Find selection buttons
+    const buttons = screen.getAllByRole('button');
+    const selectButtons = buttons.filter(button => 
+      !button.textContent || button.textContent.trim() === ''
+    );
+    
     // Select both photos
-    const selectButtons = screen.getAllByRole('button').filter(button => 
-      !button.textContent?.includes('Add to Cart')
-    )
     fireEvent.click(selectButtons[0])
     fireEvent.click(selectButtons[1])
     
     // Click the add to cart button
-    fireEvent.click(screen.getByText('Add to Cart'))
+    const addToCartButton = screen.getByText('Add to Cart');
+    fireEvent.click(addToCartButton);
     
     // Check if addToCart was called for both photos
     expect(mockAddToCart).toHaveBeenCalledTimes(2)

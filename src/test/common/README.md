@@ -1,4 +1,87 @@
-# Component Tests
+# Photo Gallery Testing Suite
+
+## Directory Structure
+
+The test directory is organized as follows:
+
+- **components/**: Tests for individual React components
+- **integration/**: Integration tests that test multiple components together
+- **store/**: Tests for store logic (Zustand stores, hooks, persistence)
+- **utils/**: Utility functions for testing
+- **common/**: Common setup and configuration files
+- **mocks/**: Mock data and service implementations
+
+## Running Tests
+
+To run all tests:
+
+```bash
+yarn test
+```
+
+To run specific test files:
+
+```bash
+yarn test src/test/components/photo-selection.test.tsx
+```
+
+To run all component tests:
+
+```bash
+yarn test src/test/components
+```
+
+## Test Conventions
+
+### Component Tests
+
+Component tests should:
+- Test the component's primary functionality
+- Test edge cases and error states
+- Test user interactions
+- Test accessibility
+
+Example:
+
+```tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { PhotoSelection } from '../../components/photo-selection';
+
+describe('PhotoSelection', () => {
+  it('should render a list of photos', () => {
+    render(<PhotoSelection photos={mockPhotos} />);
+    expect(screen.getAllByRole('img')).toHaveLength(mockPhotos.length);
+  });
+});
+```
+
+### Integration Tests
+
+Integration tests should test the interaction between components, often including:
+- Navigation flows
+- Data flow between components
+- End-to-end user journeys
+
+### Store Tests
+
+Store tests should:
+- Test state initialization
+- Test state transitions
+- Test selectors and derived state
+- Test persistence (if applicable)
+
+## Mocking
+
+For external dependencies, use mock implementations provided in the `mocks` directory.
+
+## Utils
+
+The `utils` directory contains helper functions for:
+- Rendering components with context providers
+- Creating test data
+- Common assertion patterns
+
+## Component Tests
 
 This directory contains all the tests for the photo gallery application components.
 

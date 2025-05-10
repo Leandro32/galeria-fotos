@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import HomePage from '../pages/HomePage'
-import { TestRouter } from './utils'
+import HomePage from "../../pages/HomePage"
+import { TestRouter } from "../utils/utils"
 
 // Mock components that might cause issues in tests
 vi.mock('../components/layout', () => ({

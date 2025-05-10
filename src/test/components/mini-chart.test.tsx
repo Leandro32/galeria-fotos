@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, beforeAll } from 'vitest'
-import { MiniChart } from '../components/photo-gallery/mini-chart'
-import { setupChartTestEnvironment, chartAssertions } from './chart-test-utils'
+import { MiniChart } from "../../components/photo-gallery/mini-chart"
+import { setupChartTestEnvironment, chartAssertions } from "../utils/chart-test-utils"
 
 // Set up chart testing environment before running tests
 beforeAll(() => {

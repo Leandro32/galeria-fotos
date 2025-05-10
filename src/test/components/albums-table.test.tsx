@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { AlbumsTable } from '../components/photo-gallery/albums-table'
+import { AlbumsTable } from "../../components/photo-gallery/albums-table"
 
 describe('AlbumsTable', () => {
   it('renders the table with correct headers', () => {

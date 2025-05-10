@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import HomePage from '../pages/HomePage'
-import { TestRouter } from './utils'
+import HomePage from "../../pages/HomePage"
+import { TestRouter } from "../utils/utils"
 
 // Skip the initial mock setup since we're testing with the actual components
 describe('App Integration', () => {
