@@ -1,9 +1,9 @@
 "use client"
 
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { useCart, type Photo } from "@/components/cart-provider"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "./ui/dialog"
+import { Button } from "./ui/button"
+import { Badge } from "./ui/badge"
+import { useCart, type Photo } from "./cart-provider"
 import { ShoppingCart, MapPin, Calendar, RatioIcon as AspectRatio } from "lucide-react"
 
 interface PhotoDetailProps {
@@ -28,7 +28,7 @@ export function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
       <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
         <div className="grid md:grid-cols-2 gap-0">
           <div className="relative aspect-square md:aspect-auto">
-            <img src={photo.url || "/placeholder.svg"} alt={photo.title} fill className="object-cover" />
+            <img src={photo.url || "/placeholder.svg"} alt={photo.title} className="object-cover w-full h-full" />
           </div>
           <div className="p-6 space-y-4">
             <div className="flex justify-between items-start">
