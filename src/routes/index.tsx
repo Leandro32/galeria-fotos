@@ -6,6 +6,7 @@ import { RouterErrorFallback } from "../components/routing/RouterErrorBoundary";
 // Lazy-loaded pages with error boundaries
 const HomePage = lazyWithErrorBoundary(() => import("../pages/HomePage"));
 const PhotoUploadPage = lazyWithErrorBoundary(() => import("../pages/PhotoUploadPage"));
+const CartPage = lazyWithErrorBoundary(() => import("../pages/CartPage"));
 // const AdminDashboard = lazyWithErrorBoundary(() => import("../pages/admin/AdminDashboard"));
 // const UploadPhotosPage = lazyWithErrorBoundary(() => import("../pages/photographer/UploadPhotosPage"));
 
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/upload",
         element: <PhotoUploadPage />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
     ],
   },

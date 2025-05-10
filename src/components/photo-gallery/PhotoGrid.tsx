@@ -1,15 +1,40 @@
 import { Plus } from "lucide-react"
 import { Button } from "../ui/button"
 import { Photo } from "../../types"
+import { useCartStore, Photo as CartPhoto } from "../../stores/useCartStore"
 
 interface PhotoGridProps {
   photos: Photo[]
   columns: number
   onPhotoClick: (photo: Photo) => void
-  onAddToCart: (photo: Photo) => void
 }
 
-const PhotoGrid = ({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProps) => {
+const PhotoGrid = ({ photos, columns, onPhotoClick }: PhotoGridProps) => {
+  const { addToCart, items } = useCartStore()
+  
+  console.log("Current cart items:", items)
+
+  const handleAddToCart = (photo: Photo) => {
+    console.log("Adding to cart:", photo)
+    const cartPhoto: CartPhoto = {
+      id: photo.id,
+      title: photo.title,
+      description: photo.description,
+      url: photo.url,
+      price: photo.price,
+      location: photo.location,
+      categories: [], // Default empty array
+      orientation: "landscape", // Default to landscape
+      date: photo.date,
+    }
+    console.log("Converted to cart photo:", cartPhoto)
+    addToCart(cartPhoto)
+    // Check if item was added
+    setTimeout(() => {
+      console.log("Cart items after add:", useCartStore.getState().items)
+    }, 100)
+  }
+
   const createMasonryGrid = (photos: Photo[], columns: number) => {
     const columnWrappers: Record<string, Photo[]> = {}
 
@@ -56,7 +81,7 @@ const PhotoGrid = ({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProp
                     className="rounded-full h-10 w-10 shadow-lg"
                     onClick={(e) => {
                       e.stopPropagation()
-                      onAddToCart(photo)
+                      handleAddToCart(photo)
                     }}
                   >
                     <Plus className="h-5 w-5" />

@@ -12,7 +12,6 @@ import { Link } from "react-router-dom"
 
 const HomePage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("")
-  const [cart, setCart] = useState<Photo[]>([])
   const [masonryColumns, setMasonryColumns] = useState<number>(3)
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
@@ -84,16 +83,6 @@ const HomePage = () => {
         .filter(Boolean),
     ),
   ]
-
-  // Add to cart function
-  const addToCart = (photo: Photo) => {
-    setCart((prev) => {
-      if (prev.some((item) => item.id === photo.id)) {
-        return prev
-      }
-      return [...prev, photo]
-    })
-  }
 
   // Open photo modal
   const openPhotoModal = (photo: Photo) => {
@@ -169,16 +158,18 @@ const HomePage = () => {
       <main className="container mx-auto py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Photo Gallery</h1>
-          <Link 
-            to="/upload" 
-            className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
-          >
-            <span>Subir Fotos</span>
-          </Link>
+          <div className="flex gap-2">
+            <Link 
+              to="/upload" 
+              className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
+            >
+              <span>Subir Fotos</span>
+            </Link>
+          </div>
         </div>
         
         {/* Cart indicator component */}
-        <CartIndicator count={cart.length} />
+        <CartIndicator />
 
         {/* Location selection cards */}
         {!selectedLocation && (
@@ -211,7 +202,6 @@ const HomePage = () => {
             photos={filteredPhotos}
             columns={masonryColumns}
             onPhotoClick={openPhotoModal}
-            onAddToCart={addToCart}
           />
         )}
 
@@ -222,9 +212,8 @@ const HomePage = () => {
           photo={selectedPhoto}
           photos={filteredPhotos}
           onNavigate={navigatePhoto}
-          onAddToCart={addToCart}
           onSelectPhoto={setSelectedPhoto}
-          thumbnailsRef={thumbnailsRef}
+          thumbnailsRef={thumbnailsRef as React.RefObject<HTMLDivElement>}
         />
       </main>
     </div>

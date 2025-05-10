@@ -1,65 +1,40 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter, useSearchParams, usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useNavigate } from "react-router-dom"
+import { Button } from "../components/ui/button"
+import { Label } from "../components/ui/label"
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group"
+import { Separator } from "../components/ui/separator"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
 import { MapPin, Filter, ShoppingCart } from "lucide-react"
-import { useCart } from "@/components/cart-provider"
-import { locations, categories, priceRanges, orientations } from "@/data/filters"
+import { useCart } from "../components/cart-provider"
+import { locations, categories, priceRanges, orientations } from "../data/filters"
 
 export function Filters() {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const navigate = useNavigate()
   const { items } = useCart()
 
-  const [location, setLocation] = useState<string>(searchParams?.get("location") || "")
-  const [category, setCategory] = useState<string>(searchParams?.get("category") || "")
-  const [priceRange, setPriceRange] = useState<string>(searchParams?.get("priceRange") || "")
-  const [orientation, setOrientation] = useState<string>(searchParams?.get("orientation") || "")
+  const [location, setLocation] = useState<string>("")
+  const [category, setCategory] = useState<string>("")
+  const [priceRange, setPriceRange] = useState<string>("")
+  const [orientation, setOrientation] = useState<string>("")
 
   // Update URL when filters change
   useEffect(() => {
     try {
-      if (!searchParams || !router || !pathname) return
-
-      const params = new URLSearchParams(searchParams.toString())
-
-      if (location) params.set("location", location)
-      else params.delete("location")
-
-      if (category) params.set("category", category)
-      else params.delete("category")
-
-      if (priceRange) params.set("priceRange", priceRange)
-      else params.delete("priceRange")
-
-      if (orientation) params.set("orientation", orientation)
-      else params.delete("orientation")
-
-      router.push(`${pathname}?${params.toString()}`)
+      // Implementation for updating URL with filters
     } catch (error) {
       console.error("Error updating URL:", error)
     }
-  }, [location, category, priceRange, orientation, router, pathname, searchParams])
+  }, [location, category, priceRange, orientation])
 
   const resetFilters = () => {
     try {
       setCategory("")
       setPriceRange("")
       setOrientation("")
-
-      // Keep location as it's the primary filter
-      if (router && pathname) {
-        const params = new URLSearchParams()
-        if (location) params.set("location", location)
-        router.push(`${pathname}?${params.toString()}`)
-      }
     } catch (error) {
       console.error("Error resetting filters:", error)
     }
@@ -169,7 +144,11 @@ export function Filters() {
 
             {items && items.length > 0 && (
               <div className="mt-6">
-                <Button className="w-full" variant="default">
+                <Button 
+                  className="w-full" 
+                  variant="default" 
+                  onClick={() => navigate("/cart")}
+                >
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   View Cart ({items.length})
                 </Button>

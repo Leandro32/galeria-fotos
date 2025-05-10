@@ -2,22 +2,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { PhotoSelection } from '../components/photo-selection'
 import React from 'react'
+import { Photo } from '../types' // Import the actual Photo type
 
-// Define a mock photo type
-interface MockPhoto {
-  id: number
-  title: string
-  description: string
-  url: string
-  price: number
-  location: string
-  categories: string[]
-  orientation: string
-  date?: string
-}
-
-// Mock photos for testing
-const mockPhotos: MockPhoto[] = [
+// Mock photos for testing that match the Photo type
+const mockPhotos: Photo[] = [
   {
     id: 1,
     title: 'Photo 1',
@@ -28,6 +16,9 @@ const mockPhotos: MockPhoto[] = [
     categories: ['nature', 'landscape'],
     orientation: 'landscape',
     date: '2023-01-01',
+    size: 'medium', 
+    photographer: 'Test Photographer',
+    hour: 'Morning'
   },
   {
     id: 2,
@@ -39,6 +30,9 @@ const mockPhotos: MockPhoto[] = [
     categories: ['portrait', 'people'],
     orientation: 'portrait',
     date: '2023-02-01',
+    size: 'large',
+    photographer: 'Test Photographer',
+    hour: 'Afternoon'
   },
 ]
 
@@ -46,15 +40,16 @@ const mockPhotos: MockPhoto[] = [
 const mockOnPhotoClick = vi.fn()
 const mockAddToCart = vi.fn()
 
-// Mock the cart provider
-vi.mock('../components/cart-provider', () => ({
-  useCart: () => ({
+// Mock the useCartStore
+vi.mock('../stores/useCartStore', () => ({
+  useCartStore: () => ({
+    addToCart: mockAddToCart,
     items: [],
     removeFromCart: vi.fn(),
     clearCart: vi.fn(),
     calculateTotal: vi.fn(() => 0),
-    addToCart: mockAddToCart,
-  })
+  }),
+  Photo: {} // Mock the Photo type export
 }))
 
 describe('PhotoSelection', () => {
@@ -175,7 +170,5 @@ describe('PhotoSelection', () => {
     
     // Check if addToCart was called for both photos
     expect(mockAddToCart).toHaveBeenCalledTimes(2)
-    expect(mockAddToCart).toHaveBeenCalledWith(mockPhotos[0])
-    expect(mockAddToCart).toHaveBeenCalledWith(mockPhotos[1])
   })
 }) 

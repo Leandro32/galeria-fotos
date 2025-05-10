@@ -3,8 +3,9 @@
 import { useState } from "react"
 import { Check, ShoppingCart } from "lucide-react"
 import { Button } from "./ui/button"
-import { useCart, type Photo } from "./cart-provider"
 import { Badge } from "./ui/badge"
+import { Photo } from "../types"
+import { useCartStore, Photo as CartPhoto } from "../stores/useCartStore"
 
 interface PhotoSelectionProps {
   photos: Photo[]
@@ -13,7 +14,7 @@ interface PhotoSelectionProps {
 
 export function PhotoSelection({ photos, onPhotoClick }: PhotoSelectionProps) {
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([])
-  const { addToCart } = useCart()
+  const { addToCart } = useCartStore()
   
   const togglePhotoSelection = (photoId: number) => {
     setSelectedPhotos(prev => 
@@ -23,9 +24,25 @@ export function PhotoSelection({ photos, onPhotoClick }: PhotoSelectionProps) {
     )
   }
   
+  // Adapter function to convert Photo to CartPhoto
+  const handleAddToCart = (photo: Photo) => {
+    const cartPhoto: CartPhoto = {
+      id: photo.id,
+      title: photo.title,
+      description: photo.description,
+      url: photo.url,
+      price: photo.price,
+      location: photo.location,
+      categories: [], // Default empty array
+      orientation: "landscape", // Default to landscape
+      date: photo.date,
+    }
+    addToCart(cartPhoto)
+  }
+  
   const handleAddSelectedToCart = () => {
     const photosToAdd = photos.filter(photo => selectedPhotos.includes(photo.id))
-    photosToAdd.forEach(photo => addToCart(photo))
+    photosToAdd.forEach(photo => handleAddToCart(photo))
     setSelectedPhotos([])
   }
   

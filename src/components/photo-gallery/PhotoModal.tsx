@@ -1,8 +1,9 @@
 import { ShoppingCart, X, ChevronLeft, ChevronRight } from "lucide-react"
-import { Dialog, DialogContent } from "../ui/dialog"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "../ui/dialog"
 import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 import { Photo } from "../../types"
+import { useCartStore, Photo as CartPhoto } from "../../stores/useCartStore"
 
 interface PhotoModalProps {
   isOpen: boolean
@@ -10,7 +11,6 @@ interface PhotoModalProps {
   photo: Photo | null
   photos: Photo[]
   onNavigate: (direction: "next" | "prev") => void
-  onAddToCart: (photo: Photo) => void
   onSelectPhoto: (photo: Photo) => void
   thumbnailsRef: React.RefObject<HTMLDivElement>
 }
@@ -21,15 +21,34 @@ const PhotoModal = ({
   photo,
   photos,
   onNavigate,
-  onAddToCart,
   onSelectPhoto,
   thumbnailsRef,
 }: PhotoModalProps) => {
+  const { addToCart } = useCartStore()
+  
   if (!photo) return null
+
+  const handleAddToCart = (photo: Photo) => {
+    const cartPhoto: CartPhoto = {
+      id: photo.id,
+      title: photo.title,
+      description: photo.description,
+      url: photo.url,
+      price: photo.price,
+      location: photo.location,
+      categories: [], // Default empty array
+      orientation: "landscape", // Default to landscape
+      date: photo.date,
+    }
+    addToCart(cartPhoto)
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl p-0 h-[90vh] flex flex-col bg-background dark:bg-background-dark">
+        <DialogTitle className="sr-only">{photo.title}</DialogTitle>
+        <DialogDescription className="sr-only">{photo.description}</DialogDescription>
+        
         {/* Close button */}
         <Button
           variant="ghost"
@@ -80,7 +99,7 @@ const PhotoModal = ({
             <p className="text-muted-foreground mb-4">{photo.description}</p>
             <p className="text-sm mb-6">Date: {photo.date}</p>
 
-            <Button className="w-full" onClick={() => onAddToCart(photo)}>
+            <Button className="w-full" onClick={() => handleAddToCart(photo)}>
               <ShoppingCart className="h-4 w-4 mr-2" />
               Add to Cart
             </Button>
@@ -118,4 +137,4 @@ const PhotoModal = ({
   )
 }
 
-export default PhotoModal 
+export default PhotoModal

@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, type ReactNode } from "react"
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 // Define the Photo type
 export interface Photo {
@@ -39,18 +39,52 @@ const defaultCartContext: CartContextType = {
 // Create the context with a default value
 const CartContext = createContext<CartContextType>(defaultCartContext)
 
+// Load cart from localStorage
+const loadCartFromStorage = (): Photo[] => {
+  if (typeof window === 'undefined') return []
+  
+  try {
+    const savedCart = localStorage.getItem('cart')
+    return savedCart ? JSON.parse(savedCart) : []
+  } catch (error) {
+    console.error('Failed to load cart from localStorage:', error)
+    return []
+  }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<Photo[]>([])
+  
+  // Load cart from localStorage on initial render
+  useEffect(() => {
+    setItems(loadCartFromStorage())
+  }, [])
+  
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    if (items.length > 0 || loadCartFromStorage().length > 0) {
+      localStorage.setItem('cart', JSON.stringify(items))
+    }
+  }, [items])
 
   const addToCart = (photo: Photo) => {
-    if (!photo || typeof photo.id !== "number") return
-
+    if (!photo || typeof photo.id !== "number") {
+      console.error("Invalid photo object:", photo)
+      return
+    }
+    
+    console.log("Cart Provider - Adding to cart:", photo)
+    console.log("Cart Provider - Current items:", items)
+    
     setItems((prev) => {
       // Check if item already exists in cart
       if (prev.some((item) => item.id === photo.id)) {
+        console.log("Cart Provider - Item already in cart")
         return prev
       }
-      return [...prev, photo]
+      const newItems = [...prev, photo]
+      console.log("Cart Provider - New items:", newItems)
+      return newItems
     })
   }
 
@@ -62,6 +96,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setItems([])
+    localStorage.removeItem('cart')
   }
 
   const calculateTotal = () => {
