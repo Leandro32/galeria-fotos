@@ -45,22 +45,27 @@ See [PROJECT_ORGANIZATION.md](docs/PROJECT_ORGANIZATION.md) for details on the r
 │   └── icons/              # App icons
 │
 ├── docs/                   # Documentation
-│   └── project-timeline.md # Project roadmap
+│   ├── backend-implementation-go.md   # Go backend implementation details
+│   ├── cart-implementation.md         # Shopping cart implementation
+│   ├── project-timeline.md            # Project roadmap
+│   └── PROJECT_ORGANIZATION.md        # Project structure guide
 │
-├── Configuration files:
+├── config/                 # Configuration files
 │   ├── .depcheckrc.json    # Dependency checker config
 │   ├── eslint.config.js    # ESLint configuration
-│   ├── tsconfig.json       # TypeScript base config
-│   ├── tsconfig.app.json   # App-specific TS config
-│   ├── tsconfig.node.json  # Node-specific TS config
-│   ├── vite.config.ts      # Vite bundler config
 │   ├── tailwind.config.js  # Tailwind CSS config
 │   └── vitest.config.js    # Testing configuration
 │
-├── Server scripts:
+├── scripts/                # Utility scripts
 │   ├── server.js           # Node.js static server
 │   ├── server.go           # Go static server
 │   └── serve.bat           # Windows server script
+│
+├── Configuration files still in root:
+│   ├── tsconfig.json       # TypeScript base config
+│   ├── tsconfig.app.json   # App-specific TS config
+│   ├── tsconfig.node.json  # Node-specific TS config
+│   └── vite.config.ts      # Vite bundler config
 │
 ├── index.html              # HTML entry point
 ├── package.json            # Dependencies and scripts

@@ -82,4 +82,23 @@ This organization provides several advantages:
 
 ## Current Status
 
-Currently, the files are still organized in a flat structure. This document serves as a guide for future refactoring efforts. 
+The project has partially implemented the recommended structure:
+
+- A **config** folder has been created, which contains:
+  - `.depcheckrc.json`
+  - `eslint.config.js`
+  - `tailwind.config.js`
+  - `vitest.config.js`
+
+- The **scripts** folder is fully implemented with:
+  - `server.js`
+  - `server.go`
+  - `serve.bat`
+
+- Configuration files still in the root directory that should be moved to the config folder:
+  - `tsconfig.json`
+  - `tsconfig.app.json`
+  - `tsconfig.node.json`
+  - `vite.config.ts`
+
+This document serves as a guide for future refactoring efforts to complete the migration to the recommended structure. 
