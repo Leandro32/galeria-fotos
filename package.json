@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "serve": "node scripts/server.js",
+    "serve:go": "go run scripts/server.go"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -80,6 +82,7 @@
     "jsdom": "^26.1.0",
     "rollup-plugin-visualizer": "^5.14.0",
     "tailwindcss": "^4.1.6",
+    "terser": "^5.39.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",

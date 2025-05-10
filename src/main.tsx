@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
-import { withErrorHandling } from './components/routing/withErrorHandling';
 import './index.css';
+
+// Lazy load router to improve initial load time
+const AppRouter = lazy(() => import('./AppRouter'));
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {withErrorHandling(<RouterProvider router={router} />)}
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen">Loading...</div>}>
+      <AppRouter />
+    </Suspense>
   </React.StrictMode>
 );

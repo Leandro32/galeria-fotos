@@ -1,0 +1,3 @@
+@echo off
+echo Running Go server for the photo gallery...
+go run %~dp0\server.go 

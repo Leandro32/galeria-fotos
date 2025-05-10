@@ -2,6 +2,7 @@ import { Plus } from "lucide-react"
 import { Button } from "../ui/button"
 import { Photo } from "../../types"
 import { useCartStore, Photo as CartPhoto } from "../../stores/useCartStore"
+import { memo } from "react"
 
 export interface PhotoGridProps {
   photos: Photo[]
@@ -10,7 +11,7 @@ export interface PhotoGridProps {
   onAddToCart?: (photo: Photo) => void
 }
 
-const PhotoGrid = ({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProps) => {
+const PhotoGrid = memo(({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProps) => {
   const { addToCart, items } = useCartStore()
   
   console.log("Current cart items:", items)
@@ -79,6 +80,10 @@ const PhotoGrid = ({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProp
                   src={photo.url || "/placeholder.svg"}
                   alt={`Photo ${photo.id}`}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width={photo.size === "large" ? 600 : photo.size === "medium" ? 400 : 300}
+                  height={photo.size === "large" ? 800 : photo.size === "medium" ? 300 : 300}
                 />
                 <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   <Button
@@ -99,6 +104,6 @@ const PhotoGrid = ({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProp
       ))}
     </div>
   )
-}
+})
 
 export default PhotoGrid 

@@ -1,14 +1,16 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo, lazy, Suspense } from "react"
 import { locations, photos } from "../data/photos"
 import { Photo } from "../types"
 import CartIndicator from "../components/photo-gallery/CartIndicator"
 import LocationSelector from "../components/photo-gallery/LocationSelector"
 import PhotoFilters from "../components/photo-gallery/PhotoFilters"
 import PhotoGrid from "../components/photo-gallery/PhotoGrid"
-import PhotoModal from "../components/photo-gallery/PhotoModal"
 import { Link } from "react-router-dom"
+
+// Lazy-loaded components
+const PhotoModal = lazy(() => import("../components/photo-gallery/PhotoModal"))
 
 const HomePage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("")
@@ -19,70 +21,88 @@ const HomePage = () => {
   const [dateFilter, setDateFilter] = useState<string>("")
   const [hourFilter, setHourFilter] = useState<string>("")
   const thumbnailsRef = useRef<HTMLDivElement>(null)
+  const resizeTimeoutRef = useRef<number | null>(null)
 
-  // Responsive columns based on screen width
+  // Responsive columns based on screen width with debouncing
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setMasonryColumns(1)
-      } else if (window.innerWidth < 1024) {
-        setMasonryColumns(2)
-      } else {
-        setMasonryColumns(3)
+      // Clear the existing timeout
+      if (resizeTimeoutRef.current !== null) {
+        window.clearTimeout(resizeTimeoutRef.current)
       }
+      
+      // Set a new timeout
+      resizeTimeoutRef.current = window.setTimeout(() => {
+        if (window.innerWidth < 640) {
+          setMasonryColumns(1)
+        } else if (window.innerWidth < 1024) {
+          setMasonryColumns(2)
+        } else {
+          setMasonryColumns(3)
+        }
+      }, 200) // 200ms debounce
     }
 
     handleResize()
     window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    return () => {
+      window.removeEventListener("resize", handleResize)
+      if (resizeTimeoutRef.current !== null) {
+        window.clearTimeout(resizeTimeoutRef.current)
+      }
+    }
   }, [])
 
   // Filter photos based on selected location and other filters
-  const filteredPhotos = selectedLocation
-    ? photos.filter((photo) => {
-        // Primary filter - location
-        if (photo.location !== selectedLocation) return false
+  const filteredPhotos = useMemo(() => {
+    if (!selectedLocation) return []
+    
+    return photos.filter((photo) => {
+      // Primary filter - location
+      if (photo.location !== selectedLocation) return false
 
-        // Photographer filter
-        if (photographerFilter && (!photo.photographer || photo.photographer !== photographerFilter)) return false
+      // Photographer filter
+      if (photographerFilter && (!photo.photographer || photo.photographer !== photographerFilter)) return false
 
-        // Date range filter
-        if (dateFilter) {
-          const [startDate, endDate] = dateFilter.split(",")
-          if (startDate || endDate) {
-            const photoDate = new Date(photo.date)
-            if (startDate && new Date(startDate) > photoDate) return false
-            if (endDate && new Date(endDate) < photoDate) return false
-          }
+      // Date range filter
+      if (dateFilter) {
+        const [startDate, endDate] = dateFilter.split(",")
+        if (startDate || endDate) {
+          const photoDate = new Date(photo.date)
+          if (startDate && new Date(startDate) > photoDate) return false
+          if (endDate && new Date(endDate) < photoDate) return false
         }
+      }
 
-        // Hour filter - match the beginning of the time string
-        if (hourFilter && hourFilter !== "all") {
-          // This is a simplified example - in a real app you'd parse the actual time from the photo metadata
-          const photoHour =
-            photo.hour === "Morning"
-              ? "08:00"
-              : photo.hour === "Day"
-                ? "12:00"
-                : photo.hour === "Evening"
-                  ? "18:00"
-                  : "22:00"
-          if (!photoHour.startsWith(hourFilter.slice(0, 2))) return false
-        }
+      // Hour filter - match the beginning of the time string
+      if (hourFilter && hourFilter !== "all") {
+        // This is a simplified example - in a real app you'd parse the actual time from the photo metadata
+        const photoHour =
+          photo.hour === "Morning"
+            ? "08:00"
+            : photo.hour === "Day"
+              ? "12:00"
+              : photo.hour === "Evening"
+                ? "18:00"
+                : "22:00"
+        if (!photoHour.startsWith(hourFilter.slice(0, 2))) return false
+      }
 
-        return true
-      })
-    : []
+      return true
+    })
+  }, [selectedLocation, photographerFilter, dateFilter, hourFilter])
 
   // Extract unique filter values
-  const photographers = [
-    ...new Set(
-      photos
-        .filter((p) => p.location === selectedLocation)
-        .map((p) => p.photographer)
-        .filter(Boolean),
-    ),
-  ]
+  const photographers = useMemo(() => {
+    return [
+      ...new Set(
+        photos
+          .filter((p) => p.location === selectedLocation)
+          .map((p) => p.photographer)
+          .filter(Boolean),
+      ),
+    ]
+  }, [selectedLocation])
 
   // Open photo modal
   const openPhotoModal = (photo: Photo) => {
@@ -137,7 +157,7 @@ const HomePage = () => {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [modalOpen, selectedPhoto])
+  }, [modalOpen, selectedPhoto, filteredPhotos])
 
   // Scroll selected thumbnail into view when modal opens
   useEffect(() => {
@@ -145,7 +165,7 @@ const HomePage = () => {
       const index = filteredPhotos.findIndex((photo) => photo.id === selectedPhoto.id)
       setTimeout(() => scrollToThumbnail(index), 100)
     }
-  }, [modalOpen, selectedPhoto])
+  }, [modalOpen, selectedPhoto, filteredPhotos])
 
   const resetFilters = () => {
     setPhotographerFilter("")
@@ -205,16 +225,20 @@ const HomePage = () => {
           />
         )}
 
-        {/* Photo Modal */}
-        <PhotoModal
-          isOpen={modalOpen}
-          onOpenChange={setModalOpen}
-          photo={selectedPhoto}
-          photos={filteredPhotos}
-          onNavigate={navigatePhoto}
-          onSelectPhoto={setSelectedPhoto}
-          thumbnailsRef={thumbnailsRef as React.RefObject<HTMLDivElement>}
-        />
+        {/* Photo Modal - lazy loaded */}
+        <Suspense fallback={null}>
+          {modalOpen && selectedPhoto && (
+            <PhotoModal 
+              isOpen={modalOpen}
+              onOpenChange={setModalOpen}
+              photo={selectedPhoto}
+              photos={filteredPhotos}
+              onNavigate={navigatePhoto}
+              onSelectPhoto={setSelectedPhoto}
+              thumbnailsRef={thumbnailsRef as React.RefObject<HTMLDivElement>}
+            />
+          )}
+        </Suspense>
       </main>
     </div>
   )

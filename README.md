@@ -19,6 +19,54 @@ A React application for browsing and purchasing photographies.
 - Tailwind CSS
 - Lucide Icons
 
+## Project Structure
+
+See [PROJECT_ORGANIZATION.md](docs/PROJECT_ORGANIZATION.md) for details on the recommended code organization.
+
+```
+├── src/                    # Application source code
+│   ├── assets/             # Static files (images, fonts)
+│   ├── components/         # Reusable UI components
+│   │   ├── photo-gallery/  # Photo gallery components
+│   │   ├── routing/        # Routing components
+│   │   └── ui/             # UI primitives
+│   ├── data/               # Sample data and constants
+│   ├── hooks/              # Custom React hooks
+│   ├── lib/                # Utility functions and helpers
+│   ├── pages/              # Main page components
+│   ├── routes/             # Application routing
+│   ├── stores/             # State management
+│   ├── test/               # Test utilities and mocks
+│   ├── types/              # TypeScript type definitions
+│   ├── main.tsx            # Application entry point
+│   └── index.css           # Global styles
+│
+├── public/                 # Static public assets
+│   └── icons/              # App icons
+│
+├── docs/                   # Documentation
+│   └── project-timeline.md # Project roadmap
+│
+├── Configuration files:
+│   ├── .depcheckrc.json    # Dependency checker config
+│   ├── eslint.config.js    # ESLint configuration
+│   ├── tsconfig.json       # TypeScript base config
+│   ├── tsconfig.app.json   # App-specific TS config
+│   ├── tsconfig.node.json  # Node-specific TS config
+│   ├── vite.config.ts      # Vite bundler config
+│   ├── tailwind.config.js  # Tailwind CSS config
+│   └── vitest.config.js    # Testing configuration
+│
+├── Server scripts:
+│   ├── server.js           # Node.js static server
+│   ├── server.go           # Go static server
+│   └── serve.bat           # Windows server script
+│
+├── index.html              # HTML entry point
+├── package.json            # Dependencies and scripts
+└── README.md               # Project documentation
+```
+
 ## Getting Started
 
 1. Install dependencies:
@@ -36,22 +84,14 @@ A React application for browsing and purchasing photographies.
    yarn build
    ```
 
-## Project Structure
-
-```
-src/
-  ├── assets/       # Static files (images, fonts)
-  ├── components/   # Reusable UI components
-  ├── data/         # Sample data and constants
-  ├── hooks/        # Custom React hooks
-  ├── lib/          # Utility functions and helpers
-  ├── pages/        # Main page components
-  ├── routes/       # Application routing
-  ├── test/         # Test utilities and mocks
-  ├── types/        # TypeScript type definitions
-  ├── main.tsx      # Application entry point
-  └── index.css     # Global styles
-```
+4. Serve production build:
+   ```bash
+   # Using Node.js server
+   yarn serve
+   
+   # Using Go server (if Go is installed)
+   yarn serve:go
+   ```
 
 ## Keyboard Shortcuts
 
@@ -77,3 +117,13 @@ Run tests in watch mode during development:
 ```bash
 yarn test:watch
 ```
+
+## Project Organization Recommendation
+
+For better organization, consider grouping files by their purpose:
+
+1. **Configuration** - Keep build and tooling configuration separate
+2. **Application code** - Organize by feature area in the src folder
+3. **Documentation** - Centralize all documentation
+
+This structure makes the codebase more maintainable and easier to navigate.

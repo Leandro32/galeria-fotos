@@ -1,0 +1,9 @@
+{
+  "ignores": [
+    "@shadcn/ui",
+    "tailwind-variants",
+    "autoprefixer",
+    "tailwindcss",
+    "@hookform/resolvers"
+  ]
+} 

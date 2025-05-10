@@ -1,5 +1,5 @@
 // src/router/index.tsx
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createHashRouter, Outlet } from "react-router-dom";
 import { lazyWithErrorBoundary } from "../components/lazy-with-error-boundary";
 import { RouterErrorFallback } from "../components/routing/RouterErrorBoundary";
 
@@ -16,7 +16,7 @@ const PublicLayout = () => <Outlet />;
 // const AdminLayout = () => <Outlet />;
 // const PhotographerLayout = () => <Outlet />;
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     element: <PublicLayout />,
     errorElement: <RouterErrorFallback />,

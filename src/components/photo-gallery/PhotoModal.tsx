@@ -4,6 +4,7 @@ import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 import { Photo } from "../../types"
 import { useCartStore, Photo as CartPhoto } from "../../stores/useCartStore"
+import { memo, useMemo } from "react"
 
 interface PhotoModalProps {
   isOpen: boolean
@@ -15,7 +16,7 @@ interface PhotoModalProps {
   thumbnailsRef: React.RefObject<HTMLDivElement>
 }
 
-const PhotoModal = ({
+const PhotoModal = memo(({
   isOpen,
   onOpenChange,
   photo,
@@ -42,6 +43,19 @@ const PhotoModal = ({
     }
     addToCart(cartPhoto)
   }
+
+  // Only render visible thumbnails for better performance
+  const visiblePhotos = useMemo(() => {
+    if (!photo) return [];
+    
+    const currentIndex = photos.findIndex(p => p.id === photo.id);
+    const windowSize = 10; // Show 10 thumbnails at a time
+    
+    const startIdx = Math.max(0, currentIndex - Math.floor(windowSize / 2));
+    const endIdx = Math.min(photos.length, startIdx + windowSize);
+    
+    return photos.slice(startIdx, endIdx);
+  }, [photo, photos]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -79,13 +93,14 @@ const PhotoModal = ({
         </Button>
 
         {/* Main content */}
-        <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           {/* Photo */}
           <div className="relative flex-1 min-h-[50%] md:min-h-0">
             <img
               src={photo.url || "/placeholder.svg"}
               alt={photo.title}
               className="w-full h-full object-contain"
+              fetchPriority="high"
             />
           </div>
 
@@ -110,7 +125,7 @@ const PhotoModal = ({
         <div className="p-4 border-t">
           <div className="overflow-x-auto pb-2">
             <div className="flex gap-2 min-w-max" ref={thumbnailsRef}>
-              {photos.map((p) => (
+              {visiblePhotos.map((p) => (
                 <div
                   key={p.id}
                   className={`relative cursor-pointer transition-all ${
@@ -125,6 +140,9 @@ const PhotoModal = ({
                       src={p.url || "/placeholder.svg"}
                       alt={p.title}
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      width={96}
+                      height={64}
                     />
                   </div>
                 </div>
@@ -135,6 +153,6 @@ const PhotoModal = ({
       </DialogContent>
     </Dialog>
   )
-}
+})
 
 export default PhotoModal
