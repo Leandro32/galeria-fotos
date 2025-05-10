@@ -7,15 +7,44 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from "vite";
 import { visualizer } from "rollup-plugin-visualizer";
+import type { Plugin, ViteDevServer } from 'vite';
+
+// Simple history fallback plugin for development
+function historyApiFallback(): Plugin {
+  return {
+    name: 'history-api-fallback',
+    configureServer(server: ViteDevServer) {
+      return () => {
+        server.middlewares.use((req, _res, next) => {
+          // Skip API requests and static assets
+          if (req.url && req.url.includes('.')) {
+            return next();
+          }
+          
+          // Otherwise rewrite all URLs to serve index.html
+          req.url = '/';
+          next();
+        });
+      };
+    }
+  };
+}
 
 export default defineConfig({
   base: './',
   plugins: [
     react(),
     tailwindcss(),
-    visualizer({ filename: "stats.html", open: true })
+    visualizer({ filename: "stats.html", open: true }),
+    historyApiFallback()
   ],
   server: {
+    port: 8000,
+    // Handle client-side routing
+    proxy: undefined,
+    middlewareMode: false
+  },
+  preview: {
     port: 8000
   },
   resolve: {

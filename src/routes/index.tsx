@@ -1,5 +1,5 @@
 // src/router/index.tsx
-import { createHashRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { lazyWithErrorBoundary } from "../components/lazy-with-error-boundary";
 import { RouterErrorFallback } from "../components/routing/RouterErrorBoundary";
 
@@ -7,16 +7,14 @@ import { RouterErrorFallback } from "../components/routing/RouterErrorBoundary";
 const HomePage = lazyWithErrorBoundary(() => import("../pages/HomePage"));
 const PhotoUploadPage = lazyWithErrorBoundary(() => import("../pages/PhotoUploadPage"));
 const CartPage = lazyWithErrorBoundary(() => import("../pages/CartPage"));
-// const AdminDashboard = lazyWithErrorBoundary(() => import("../pages/admin/AdminDashboard"));
-// const UploadPhotosPage = lazyWithErrorBoundary(() => import("../pages/photographer/UploadPhotosPage"));
+const DashboardPage = lazyWithErrorBoundary(() => import("../pages/DashboardPage"));
 
 // Layouts
 const PublicLayout = () => <Outlet />;
-// Admin and photographer layouts are commented out until needed
-// const AdminLayout = () => <Outlet />;
-// const PhotographerLayout = () => <Outlet />;
+const AdminLayout = () => <Outlet />;
+const PhotographerLayout = () => <Outlet />;
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
   {
     element: <PublicLayout />,
     errorElement: <RouterErrorFallback />,
@@ -33,30 +31,44 @@ export const router = createHashRouter([
         path: "/cart",
         element: <CartPage />,
       },
+      {
+        path: "/dashboard",
+        element: <DashboardPage />,
+      },
     ],
   },
-  // {
-  //   path: "/admin",
-  //   element: <AdminLayout />,
-  //   errorElement: <RouterErrorFallback />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <AdminDashboard />,
-  //     },
-  //     // Future admin routes like /admin/stats, /admin/settings...
-  //   ],
-  // },
-  // {
-  //   path: "/photographer",
-  //   element: <PhotographerLayout />,
-  //   errorElement: <RouterErrorFallback />,
-  //   children: [
-  //     {
-  //       path: "upload",
-  //       element: <UploadPhotosPage />,
-  //     },
-  //     // Future routes like /photographer/panel, /photographer/stats...
-  //   ],
-  // },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    errorElement: <RouterErrorFallback />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardPage />,
+      },
+    ],
+  },
+  {
+    path: "/photographer",
+    element: <PhotographerLayout />,
+    errorElement: <RouterErrorFallback />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardPage />,
+      },
+      {
+        path: "upload",
+        element: <PhotoUploadPage />,
+      },
+    ],
+  },
 ]);

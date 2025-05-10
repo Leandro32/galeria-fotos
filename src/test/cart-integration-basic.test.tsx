@@ -5,16 +5,8 @@ import { useCartStore } from '../stores/useCartStore'
 import { act } from '@testing-library/react'
 import { Button } from '../components/ui/button'
 
-// Mock localStorage globally to avoid persistence issues
-const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
-}
-
-// Apply the mock before tests
-global.localStorage = localStorageMock as any
+// We no longer need to mock localStorage here, as it's defined in setup.ts
+// Instead, we'll just clear the localStorage mock before each test
 
 // Create a simple cart button component for testing
 const TestCartButton = () => {
@@ -79,6 +71,9 @@ describe('Basic Cart Integration', () => {
     act(() => {
       useCartStore.getState().clearCart()
     })
+    
+    // Clear localStorage between tests
+    window.localStorage.clear()
   })
 
   test('should add items to cart when button is clicked', async () => {

@@ -8,6 +8,7 @@ import { ErrorBoundary } from "../error-boundary";
  */
 export const RouterErrorFallback = () => {
   const error = useRouteError();
+  console.error(error)
 
   if ( isRouteErrorResponse( error ) ) {
     const status = error.status;
