@@ -1,8 +1,7 @@
-import { describe, test, expect, beforeEach, vi } from 'vitest'
+import { describe, test, expect, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useCartStore, Photo } from '../stores/useCartStore'
 import { render, screen, fireEvent } from '@testing-library/react'
-import React from 'react'
 
 // Example hooks that demonstrate the usage of useCartStore
 const useCartCount = () => {

@@ -3,13 +3,14 @@ import { Button } from "../ui/button"
 import { Photo } from "../../types"
 import { useCartStore, Photo as CartPhoto } from "../../stores/useCartStore"
 
-interface PhotoGridProps {
+export interface PhotoGridProps {
   photos: Photo[]
   columns: number
   onPhotoClick: (photo: Photo) => void
+  onAddToCart?: (photo: Photo) => void
 }
 
-const PhotoGrid = ({ photos, columns, onPhotoClick }: PhotoGridProps) => {
+const PhotoGrid = ({ photos, columns, onPhotoClick, onAddToCart }: PhotoGridProps) => {
   const { addToCart, items } = useCartStore()
   
   console.log("Current cart items:", items)
@@ -29,6 +30,10 @@ const PhotoGrid = ({ photos, columns, onPhotoClick }: PhotoGridProps) => {
     }
     console.log("Converted to cart photo:", cartPhoto)
     addToCart(cartPhoto)
+    // Call the external handler if provided
+    if (onAddToCart) {
+      onAddToCart(photo)
+    }
     // Check if item was added
     setTimeout(() => {
       console.log("Cart items after add:", useCartStore.getState().items)

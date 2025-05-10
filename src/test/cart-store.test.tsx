@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { useCartStore, Photo } from '../stores/useCartStore'
 import { renderHook, act } from '@testing-library/react'
 

@@ -15,4 +15,6 @@ export interface Photo {
   date: string
   photographer: string
   hour: string
+  categories?: string[]
+  orientation?: 'landscape' | 'portrait'
 } 

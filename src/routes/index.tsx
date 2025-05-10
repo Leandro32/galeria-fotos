@@ -12,8 +12,9 @@ const CartPage = lazyWithErrorBoundary(() => import("../pages/CartPage"));
 
 // Layouts
 const PublicLayout = () => <Outlet />;
-const AdminLayout = () => <Outlet />;
-const PhotographerLayout = () => <Outlet />;
+// Admin and photographer layouts are commented out until needed
+// const AdminLayout = () => <Outlet />;
+// const PhotographerLayout = () => <Outlet />;
 
 export const router = createBrowserRouter([
   {

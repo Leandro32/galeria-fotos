@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { PhotoSelection } from '../components/photo-selection'
-import React from 'react'
 import { Photo } from '../types' // Import the actual Photo type
 
 // Mock photos for testing that match the Photo type

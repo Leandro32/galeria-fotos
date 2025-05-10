@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest'
+import { describe, test, expect, beforeEach } from 'vitest'
 import { act } from '@testing-library/react'
 
 // Import the store directly from the file (to avoid module caching issues)
