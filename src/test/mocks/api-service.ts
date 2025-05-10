@@ -1,5 +1,4 @@
 import { vi } from 'vitest';
-import { Photo } from '../../types';
 import { mockPhotos } from './photo-data';
 
 export const mockApiService = {

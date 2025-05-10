@@ -12,7 +12,7 @@ export function setupChartTestEnvironment() {
   }))
 
   // Create a simple mock for document.createElementNS
-  document.createElementNS = vi.fn().mockImplementation((namespaceURI, qualifiedName) => {
+  document.createElementNS = vi.fn().mockImplementation((_, qualifiedName) => {
     // Just return a regular element - don't try to set namespaceURI which is readonly
     return document.createElement(qualifiedName)
   })

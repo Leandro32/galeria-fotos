@@ -1,9 +1,9 @@
 import { describe, test, expect, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { useCartStore } from "../../stores/useCartStore"
+import { useCartStore } from '../stores/useCartStore'
 import { act } from '@testing-library/react'
-import { Button } from "../../components/ui/button"
+import { Button as AppButton } from '../components/ui/button'
 
 // We no longer need to mock localStorage here, as it's defined in setup.ts
 // Instead, we'll just clear the localStorage mock before each test
@@ -28,9 +28,9 @@ const TestCartButton = () => {
   }
   
   return (
-    <Button onClick={handleAddToCart} data-testid="add-to-cart-button">
+    <AppButton onClick={handleAddToCart} data-testid="add-to-cart-button">
       Add to Cart
-    </Button>
+    </AppButton>
   )
 }
 

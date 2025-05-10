@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { MainNav } from "../../components/photo-gallery/main-nav"
 import { renderWithRouter } from "../utils/utils"
