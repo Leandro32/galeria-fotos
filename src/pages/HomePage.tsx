@@ -3,11 +3,11 @@
 import { useState, useEffect, useRef, useMemo, lazy, Suspense } from "react"
 import { locations, photos } from "../data/photos"
 import { Photo } from "../types"
-import CartIndicator from "../components/photo-gallery/CartIndicator"
 import LocationSelector from "../components/photo-gallery/LocationSelector"
 import PhotoFilters from "../components/photo-gallery/PhotoFilters"
 import PhotoGrid from "../components/photo-gallery/PhotoGrid"
 import { Link } from "react-router-dom"
+import { Header } from "../components/ui/Header"
 
 // Lazy-loaded components
 const PhotoModal = lazy(() => import("../components/photo-gallery/PhotoModal"))
@@ -174,8 +174,9 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <main className="container mx-auto py-8">
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="container mx-auto py-8 flex-1">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Photo Gallery</h1>
           <div className="flex gap-2">
@@ -188,9 +189,6 @@ const HomePage = () => {
           </div>
         </div>
         
-        {/* Cart indicator component */}
-        <CartIndicator />
-
         {/* Location selection cards */}
         {!selectedLocation && (
           <LocationSelector 

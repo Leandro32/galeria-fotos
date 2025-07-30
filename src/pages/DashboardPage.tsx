@@ -15,18 +15,15 @@ import { Input } from "../components/ui/input"
 import { Button } from "../components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
 import { useIsMobile } from "../hooks/use-mobile"
+import { Header } from "../components/ui/Header"
+
 console.log("holaaa")
 export default function DashboardPage() {
   const isMobile = useIsMobile()
   console.log("holaaa")
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-10 border-b bg-background">
-        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-          <MainNav />
-          <UserNav />
-        </div>
-      </header>
+      <Header />
       <main className="flex-1 space-y-4 p-4 md:p-8">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
